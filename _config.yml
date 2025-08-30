@@ -1,0 +1,37 @@
+title: Arch Style Classifier Web
+description: A web app to classify architectural styles
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://yourdomain.com" # your site URL
+
+theme: minima
+
+# Minima theme settings
+minima:
+  skin: dark
+  social_links:
+    twitter: your_twitter
+    github: your_github
+    linkedin: your_linkedin
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Navigation
+header_pages:
+  - index.md
+  - about.md
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Custom variables
+author: Adila
