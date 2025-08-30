@@ -1,0 +1,46 @@
+---
+title: Home
+layout: page
+---
+
+<div class="container">
+  <h1>Architecture Style Classifier</h1>
+  <p>Upload an image of an architecture to get its style prediction!</p>
+
+  <input id="photo" type="file" accept="image/*">
+  <div id="results"></div>
+</div>
+
+<script type="module">
+  import { client } from "https://cdn.jsdelivr.net/npm/@gradio/client/dist/index.min.js";
+
+  const photo = document.getElementById("photo");
+  const results = document.getElementById("results");
+
+  async function loaded(file) {
+    try {
+      results.innerHTML = "<p>Processing...</p>";
+      const app = await client("adilsiraju/minimal");
+
+      const result = await app.predict("/predict", [
+        file
+      ]);
+
+      console.log(result.data);
+
+      const label = result.data[0]?.label || "Unknown";
+      results.innerHTML = `
+        <img src="${URL.createObjectURL(file)}" width="300" alt="Uploaded image">
+        <p><strong>Prediction:</strong> ${label}</p>
+      `;
+    } catch (error) {
+      console.error('Error:', error);
+      results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+    }
+  }
+
+  photo.addEventListener("change", () => {
+    const file = photo.files[0];
+    if (file) loaded(file);
+  });
+</script>
