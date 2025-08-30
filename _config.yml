@@ -1,5 +1,19 @@
-title: My Jekyll Site
-description: My awesome site
+title: Arch Style Classifier Web
+description: A web app to classify architectural styles
 remote_theme: pages-themes/cayman@v0.2.0
 plugins:
   - jekyll-remote-theme
+
+# Navigation (only homepage)
+header_pages:
+  - index.html
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Custom variables
+author: Adila
