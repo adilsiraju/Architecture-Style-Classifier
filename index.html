@@ -4,37 +4,20 @@ layout: default
 ---
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
-  
-  .container {
-    max-width: 600px;
+  .app-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
   }
   
-  h1 {
-    color: #ffffff;
-    margin-bottom: 20px;
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-  }
-  
-  p {
-    color: #7f8c8d;
-    margin-bottom: 30px;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-  }
-  
   .upload-section {
     background: #f8f9fa;
     border: 2px dashed #dee2e6;
-    border-radius: 15px;
+    border-radius: 12px;
     padding: 40px 20px;
     margin: 30px 0;
     transition: all 0.3s ease;
-    cursor: pointer;
   }
   
   .upload-section:hover {
@@ -42,110 +25,74 @@ layout: default
     background: #f0f8ff;
   }
   
-  .upload-section.dragover {
-    border-color: #28a745;
-    background: #f0fff4;
-  }
-  
-  #photo {
+  .file-input {
     display: none;
   }
   
   .upload-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
     border: none;
     padding: 15px 30px;
-    border-radius: 50px;
-    font-size: 1.1rem;
+    border-radius: 8px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
   }
   
   .upload-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
   }
   
-  .upload-icon {
-    font-size: 3rem;
-    color: #6c757d;
-    margin-bottom: 15px;
+  .upload-btn:active {
+    transform: translateY(0);
   }
   
-  .upload-text {
-    color: #495057;
-    font-weight: 500;
-    margin-bottom: 15px;
-  }
-  
-  #results {
+  .results {
     margin-top: 30px;
-  }
-  
-  .result-container {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-    margin-top: 20px;
+    padding: 20px;
   }
   
   .result-image {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     margin-bottom: 20px;
   }
   
   .prediction {
-    font-size: 1.3rem;
-    color: #2c3e50;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 18px;
     font-weight: 600;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    display: inline-block;
+    margin-top: 15px;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
   }
   
   .processing {
     color: #007bff;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .spinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #f3f3f3;
-    border-top: 2px solid #007bff;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    font-size: 16px;
+    font-weight: 500;
   }
   
   .error {
-    color: #dc3545;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 10px;
+    background: #dc3545;
+    color: white;
     padding: 15px;
-    margin-top: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
   }
   
-  /* Mobile optimizations */
+  /* Mobile Responsive */
   @media (max-width: 768px) {
-    .container {
+    .app-container {
       padding: 15px;
     }
     
@@ -156,48 +103,50 @@ layout: default
     
     .upload-btn {
       padding: 12px 25px;
-      font-size: 1rem;
+      font-size: 14px;
     }
     
-    .result-container {
-      padding: 20px;
+    .result-image {
+      max-width: 90%;
     }
     
-    .upload-icon {
-      font-size: 2.5rem;
+    .prediction {
+      font-size: 16px;
+      padding: 12px 20px;
     }
   }
   
   @media (max-width: 480px) {
+    h1 {
+      font-size: 24px;
+    }
+    
     .upload-section {
       padding: 25px 10px;
     }
     
     .upload-btn {
       padding: 10px 20px;
-      font-size: 0.9rem;
-    }
-    
-    .upload-icon {
-      font-size: 2rem;
+      font-size: 13px;
     }
   }
 </style>
 
-<div class="container">
+<div class="app-container">
   <h1>Instantly Classify Architectural Styles</h1>
-  <p>Upload an image of architecture to discover its style!</p>
+  <p>Upload an image of an architecture to get its style prediction!</p>
 
-  <div class="upload-section" id="uploadSection">
-    <div class="upload-icon">📸</div>
-    <div class="upload-text">Click to upload or drag & drop an image</div>
+  <div class="upload-section">
+    <input id="photo" class="file-input" type="file" accept="image/*">
     <button class="upload-btn" onclick="document.getElementById('photo').click()">
-      Choose Image
+      📸 Choose Architecture Photo
     </button>
-    <input id="photo" type="file" accept="image/*">
+    <p style="margin-top: 15px; color: #6c757d; font-size: 14px;">
+      Supports JPG, PNG, WebP formats
+    </p>
   </div>
   
-  <div id="results"></div>
+  <div id="results" class="results"></div>
 </div>
 
 <script type="module">
@@ -205,67 +154,26 @@ layout: default
 
   const photo = document.getElementById("photo");
   const results = document.getElementById("results");
-  const uploadSection = document.getElementById("uploadSection");
-
-  // Drag and drop functionality
-  uploadSection.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadSection.classList.add('dragover');
-  });
-
-  uploadSection.addEventListener('dragleave', () => {
-    uploadSection.classList.remove('dragover');
-  });
-
-  uploadSection.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadSection.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      if (file.type.startsWith('image/')) {
-        loaded(file);
-      }
-    }
-  });
 
   async function loaded(file) {
     try {
-      results.innerHTML = `
-        <div class="processing">
-          <div class="spinner"></div>
-          Processing your image...
-        </div>
-      `;
-      
+      results.innerHTML = '<p class="processing">🔄 Processing your image...</p>';
       const app = await client("adilsiraju/minimal");
-      const result = await app.predict("/predict", [file]);
+
+      const result = await app.predict("/predict", [
+        file
+      ]);
 
       console.log(result.data);
 
       const label = result.data[0]?.label || "Unknown";
-      const confidence = result.data[0]?.confidences || [];
-      
-      let confidenceHTML = '';
-      if (confidence.length > 0) {
-        confidenceHTML = '<div style="margin-top: 15px; font-size: 0.9rem; color: #6c757d;">';
-        confidence.slice(0, 3).forEach(conf => {
-          const percentage = (conf.confidence * 100).toFixed(1);
-          confidenceHTML += `<div>${conf.label}: ${percentage}%</div>`;
-        });
-        confidenceHTML += '</div>';
-      }
-      
       results.innerHTML = `
-        <div class="result-container">
-          <img src="${URL.createObjectURL(file)}" class="result-image" alt="Uploaded architecture">
-          <div class="prediction">Style: ${label}</div>
-          ${confidenceHTML}
-        </div>
+        <img src="${URL.createObjectURL(file)}" class="result-image" alt="Uploaded architecture">
+        <div class="prediction">🏛️ Style: ${label}</div>
       `;
     } catch (error) {
       console.error('Error:', error);
-      results.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+      results.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
     }
   }
 
